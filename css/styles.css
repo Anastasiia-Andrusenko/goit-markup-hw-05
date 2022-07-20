@@ -8,6 +8,8 @@
     --second-text-color: #212121;
     --footer-background: #2F303A;
 
+    --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 /* основное наследование */
@@ -109,6 +111,10 @@ p {
     margin-left: 50px;
 }
 
+.item {
+    position: relative;
+}
+
 .item-logo {
     margin-right: 93px;
 }
@@ -128,6 +134,8 @@ p {
     line-height: 1.14;
     letter-spacing: 0.02em;
     color: #212121;
+
+    transition: color 250ms var(--cubic-bezier);
 }
 
 /* контакты в хедере */
@@ -147,11 +155,15 @@ header .contact {
     letter-spacing: 0.02em;
     color: #757575;
 
+    transition: color 250ms var(--cubic-bezier);
+
 }
 
 .header-icon {
     margin-right: 10px;
-    fill: var(--text-main-color)
+    fill: var(--text-main-color);
+
+    transition: fill 250ms var(--cubic-bezier);
 }
 
 .nav .current {
@@ -170,7 +182,23 @@ header .contact {
     fill: var(--accent-color);
 }
 
-/* hero styles */
+.current::after {
+    content: '' ;
+    position: absolute;
+    left: 0;
+    bottom: -26px;
+
+    width: 100%;
+    height: 4px;
+
+    display: block;
+
+    background: #2196F3;
+    border-radius: 2px;
+
+}
+
+/* ---hero styles--- */
 
 .hero {
     padding-top: 200px;
@@ -203,8 +231,6 @@ header .contact {
     color: var(--white-color);
 }
 
-/* кнопка ЗАКАЗАТЬ УСЛУГУ в герое */
-
 .hero-btn {
     padding: 10px 32px;
 
@@ -217,6 +243,8 @@ header .contact {
     background: #2196F3;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
+
+    /* transition: background 250ms var(--cubic-bezier); */
 }
 
 .hero-btn:hover {
@@ -229,7 +257,81 @@ header .contact {
     padding-bottom: 94px;
 }
 
-/* Advantages styles */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 998;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.2);
+
+    opacity: 1;
+
+    transition: opacity 250ms var(--cubic-bezier);
+}
+
+.backdrop.is-hidden {
+    /* visibility: hidden; */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(1.15);
+} 
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%) scale(1);
+    width: 528px;
+    height: 581px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+
+    transition: transform 250ms var(--cubic-bezier);
+} 
+
+.btn-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.icon-close {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    fill: #000000;
+
+    transition: fill 250ms var(--cubic-bezier);
+}
+
+.btn-close:hover .icon-close {
+    fill: var(--accent-color);
+}
+
+
+/* ---Advantages styles--- */
 
 .advantages {
     display: flex;
@@ -319,6 +421,30 @@ h3 {
     margin-right: 0;
 }
 
+.work-text-img {
+    position: relative;
+}
+
+.work-text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 70px;
+    padding-top: 27px;
+    padding-bottom: 27px;
+
+    background: rgba(47, 48, 58, 0.8);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.14;
+    text-align: center;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--white-color);
+}
+
 /* team styles */
 
 .team h3 {
@@ -375,12 +501,16 @@ h3 {
     width: 44px;
     height: 44px;
     border-radius: 50%;
+
+    transition: background-color 250ms var(--cubic-bezier);
 }
 
 .team-link-icon {
     width: 20px;
     height: 20px;
     fill: #AFB1B8;
+
+    transition: fill 250ms var(--cubic-bezier);
 }
 
 .team-link:hover,
@@ -407,10 +537,14 @@ h3 {
     height: 92px;
     border: 1px solid #AFB1B8;
     border-radius: 4px;
+
+    transition: border 250ms var(--cubic-bezier);
 }
 
 .client-icon {
     fill: #AFB1B8;
+
+    transition: fill 250ms var(--cubic-bezier);
 }
 
 .client-border:hover {
@@ -447,6 +581,8 @@ h3 {
     color: var(--second-text-color);
     background-color: var(--second-background);
     border-radius: 4px;
+
+    transition: color 250ms var(--cubic-bezier), background-color 250ms var(--cubic-bezier), box-shadow 250ms var(--cubic-bezier);
 }
 
 .filter:hover,
@@ -477,17 +613,62 @@ h3 {
 
 .portfolio-card {
     width: calc((100% - 60px) / 3);
+    transition: box-shadow 250ms var(--cubic-bezier);
+    /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16); */
 }
 
 .portfolio-card:hover {
+    cursor: pointer;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-.portfolio-card p {
+.portfolio-card:hover .project-text {
+    opacity: 1;
+}
+
+.portfolio-card .project-type {
     font-size: 16px;
     line-height: 1.88;
     letter-spacing: 0.03em;
 }
+
+.project-thumb {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-text {
+    padding: 63px 24px;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.56;
+    letter-spacing: 0.03em;
+    color: var(--white-color);
+}
+
+.project-overlay {
+
+    position: absolute;
+    display: block;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+    background: rgba(33, 150, 243, 0.9);
+
+    opacity: 0;
+
+    transform: translateY(100%);
+    transition: transform 250ms var(--cubic-bezier);
+}
+
+.portfolio-card:hover  .project-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 /* ---FOOTER STYLES--- */
 
@@ -518,6 +699,8 @@ footer .contact {
 
 footer .contact {
     color: rgba(255, 255, 255, 0.6);
+
+    transition: color 250ms var(--cubic-bezier);
 }
 
 /* ховер и фокус в футере */
@@ -558,6 +741,8 @@ footer .contact:focus {
     height: 44px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.1);
+
+    transition: background-color 250ms var(--cubic-bezier);
 }
 
 .footer-icon {
